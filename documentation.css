@@ -1,0 +1,119 @@
+@use postcss-nested;
+
+body { 
+/*   direction: rtl; */
+/*   writing-mode: vertical-rl; */
+}
+
+/* 
+  Notes:
+  - uses flexbox gap: try Chrome Canary or Firefox that have support
+  - try changing the direction and writing modes
+*/
+
+h2 {
+  line-height: 1.5;
+  max-inline-size: 25ch;
+  text-transform: capitalize;
+  color: hsl(0 0% 20%);
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+}
+
+p {
+  line-height: 2;
+  max-inline-size: 45ch;
+  color: hsl(0 0% 25%);
+  font-size: clamp(1.1rem, 1.5vw, 1.25rem);
+}
+
+main {
+  --container-gap: clamp(1rem, 5vw, 10vw);
+  
+  display: grid;
+  gap: var(--container-gap);
+}
+
+section {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  gap: var(--container-gap);
+  
+  --column: 30ch;
+  
+  & > article {
+    flex: 1 var(--column);
+  }
+  
+  &:nth-child(odd) {
+    flex-direction: row-reverse;
+  }
+  
+  &:nth-child(even) {
+    text-align: end;
+    
+    & > article {
+      align-items: flex-end; 
+    }
+  }
+}
+
+article {
+  display: grid;
+  align-items: flex-start;
+  gap: 2ch;
+  
+  & > :is(p,h2) {
+    margin: 0;
+  }
+}
+
+figure {
+  margin: 0;
+  flex: 1 1 var(--column); 
+}
+
+figure > img {
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: contain;
+}
+
+img {
+  max-inline-size: 100%;
+}
+
+
+/* demo styles */
+.controls {
+  position: sticky;
+  top: 5vw;
+  display: flex;
+/*   display: none; */
+  flex-wrap: wrap;
+  gap: 2ch;
+  justify-content: space-between;
+  padding: 2ch;
+  background: white;
+  border: 1px solid lightgray;
+  margin-block-end: 5vmin;
+  writing-mode: horizontal-tb;
+  direction: ltr;
+  
+  & :is(h1,h2,h3,p) {
+    margin: 0;
+  }
+}
+
+body {
+  font-family: system-ui, sans-serif;
+  margin: 0;
+  padding: 5vw;
+  display: grid;
+  justify-content: center;
+}
+
+figcaption {
+  font-size: .9rem;
+  text-align: center;
+}
